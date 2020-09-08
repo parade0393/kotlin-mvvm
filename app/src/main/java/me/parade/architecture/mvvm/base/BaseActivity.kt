@@ -27,6 +27,7 @@ abstract class BaseActivity<VM: BaseViewModel,DB:ViewDataBinding>:AppCompatActiv
         initViewDataBinding()
         StatusBarUtil.setStatusBarLightMode(this,Color.WHITE)
         initView(savedInstanceState)
+        initEvent()
         initData()
     }
 
@@ -46,11 +47,13 @@ abstract class BaseActivity<VM: BaseViewModel,DB:ViewDataBinding>:AppCompatActiv
     /**
      * 做一些初始化操作
      */
-    abstract fun initView(savedInstanceState: Bundle?)
+    open fun initView(savedInstanceState: Bundle?){}
+    /** 事件监听 */
+    open fun initEvent(){}
     /**
      * 做一些初始化操作
      */
-    abstract fun initData()
+    open fun initData(){}
 
 
 

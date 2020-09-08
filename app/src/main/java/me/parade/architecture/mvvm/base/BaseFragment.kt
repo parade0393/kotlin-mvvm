@@ -53,9 +53,18 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
         createViewModel()
         registerDefUIChange()
         initView(savedInstanceState)
+        initEvent()
+        initObserver()
     }
 
+    /** 初始化试图的一些操作，比如RecyclerView的初始化等 */
     open fun initView(savedInstanceState: Bundle?) {}
+
+    /** 事件监听 */
+    open fun initEvent(){}
+
+    /** 数据观察 */
+    open fun initObserver(){}
 
     @Suppress("UNCHECKED_CAST")
     private fun createViewModel() {
@@ -130,10 +139,6 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
     /**
      * 懒加载
      */
-    abstract fun lazyLoad()
+    open fun lazyLoad(){}
 
-    override fun onPause() {
-        super.onPause()
-//        isFirst = true
-    }
 }
