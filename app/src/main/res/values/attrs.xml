@@ -46,13 +46,17 @@
         <attr name="textIsSelected" format="boolean" />
     </declare-styleable>
 
-    <!--自定义文字前缀字符串-->
-    <declare-styleable name="RequiredTextView">
+    <!--组合TextView，分左中右-->
+    <declare-styleable name="CombineTextView">
         <attr name="android:text" />
-        <!--文字的前缀，只支持字符串(默认是*)-->
+        <!--文字的前缀，只支持字符串-->
         <attr name="prefix" format="string|reference" />
         <!--前缀文字的颜色，默认是红色-->
-        <attr name="prefix_color" format="color|reference" />
+        <attr name="prefix_text_color" format="color|reference" />
+        <!-- 中间文字  -->
+        <attr name="middle_text" format="string"/>
+        <!-- 分隔符颜色  -->
+        <attr name="middle_text_color" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="SwitchButton">
