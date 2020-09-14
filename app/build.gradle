@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "me.parade.architecture.mvvm"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion 17
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -26,6 +26,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     buildFeatures{
@@ -50,7 +54,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -64,5 +68,8 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.29.0'
 
     implementation 'com.safframework.log:saf-logginginterceptor:1.4.9'
+
+    //万能适配器
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
 
 }
