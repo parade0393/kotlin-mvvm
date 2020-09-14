@@ -22,9 +22,9 @@ inline fun <reified T : Activity> Activity.startKtxActivity(
 
 
 inline fun <reified T : Activity> Fragment.startKtxActivity(
+    vararg values: Pair<String, Any>,
     flag: Int? = null,
-    extra: Bundle? = null,
-    vararg values: Pair<String, Any>
+    extra: Bundle? = null
 ) =
     activity?.let {
         startActivity(it.getIntent<T>(flag, extra, *values))

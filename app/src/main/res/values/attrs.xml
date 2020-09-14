@@ -57,6 +57,8 @@
         <attr name="middle_text" format="string"/>
         <!-- 分隔符颜色  -->
         <attr name="middle_text_color" format="color"/>
+        <!-- 从第二行开始，左边需要空出几个字符的距离  -->
+        <attr name="rest_intent_space" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="SwitchButton">

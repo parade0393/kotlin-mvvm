@@ -1,14 +1,17 @@
 package me.parade.architecture.mvvm.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.LeadingMarginSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
@@ -16,15 +19,21 @@ import me.parade.architecture.mvvm.R;
 
 /**
  * Created by parade岁月 on 2019/8/21 12:22
- * 必填TextView，比如文字前有*，前缀字体可定制，颜色可定制
+ * 组合TextView,分左中右  ，右侧的文字就是原生的text
+ * 在代码中设置主要文本(最右侧)需要使用setContent(content)
+ * 可设置从第二行往后每一行的缩进
+ * 第一行中间的间距可用&#8195;代表一个字符，&#8194;代表半个字符的宽度
  */
 public class CombineTextView extends AppCompatTextView {
+
+    private static final String TAG = "CombineTextView";
 
     private String mPrefix;
     private int mPrefixColor = Color.RED;
     private String mMiddleText;
     private int mMiddleTextColor;
     private String mContent;
+    private int mRestIntentSpace;
 
     public CombineTextView(Context context) {
         this(context, (AttributeSet) null);
@@ -46,6 +55,7 @@ public class CombineTextView extends AppCompatTextView {
         mMiddleText = array.getString(R.styleable.CombineTextView_middle_text);
         mMiddleTextColor = array.getColor(R.styleable.CombineTextView_middle_text_color, mPrefixColor);
         mContent = array.getString(R.styleable.CombineTextView_android_text);
+        mRestIntentSpace = array.getInteger(R.styleable.CombineTextView_rest_intent_space, 0);
         if (null ==mPrefix) mPrefix = "";
         if (null == mMiddleText) mMiddleText = "";
         if (null == mContent) mContent = "";
@@ -53,12 +63,27 @@ public class CombineTextView extends AppCompatTextView {
         array.recycle();
     }
 
+
     private void setTextContent() {
-        Spannable span = new SpannableString(mPrefix +mMiddleText+ mContent);
-        span.setSpan(new ForegroundColorSpan(mPrefixColor), 0, mPrefix.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        span.setSpan(new ForegroundColorSpan(mMiddleTextColor),mPrefix.length(),mPrefix.length()+mMiddleText.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        setText(span);
+        int start = 0,end = 0;
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(mPrefix);
+        end = builder.length();
+        builder.setSpan(new ForegroundColorSpan(mPrefixColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        start = end;
+        builder.append(mMiddleText);
+        end = builder.length();
+        builder.setSpan(new ForegroundColorSpan(mMiddleTextColor),start,end,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        start = end;
+        builder.append(mContent);
+        end = builder.length();
+        builder.setSpan(new LeadingMarginSpan.Standard(0,(int)getTextSize()*mRestIntentSpace),0,end,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        setText(builder);
     }
 
-
+    public void setContent(String content){
+        this.mContent = content;
+        setTextContent();
+    }
 }
