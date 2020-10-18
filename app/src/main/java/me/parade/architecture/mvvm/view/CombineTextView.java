@@ -1,17 +1,14 @@
 package me.parade.architecture.mvvm.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
@@ -29,6 +26,7 @@ public class CombineTextView extends AppCompatTextView {
     private static final String TAG = "CombineTextView";
 
     private String mPrefix;
+    private int prefixSize;
     private int mPrefixColor = Color.RED;
     private String mMiddleText;
     private int mMiddleTextColor;
@@ -51,6 +49,7 @@ public class CombineTextView extends AppCompatTextView {
     private void init(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CombineTextView);
         mPrefix = array.getString(R.styleable.CombineTextView_prefix);
+        prefixSize = array.getDimensionPixelSize(R.styleable.CombineTextView_prefix_text_size, (int) getTextSize());
         mPrefixColor = array.getInteger(R.styleable.CombineTextView_prefix_text_color, Color.RED);
         mMiddleText = array.getString(R.styleable.CombineTextView_middle_text);
         mMiddleTextColor = array.getColor(R.styleable.CombineTextView_middle_text_color, mPrefixColor);
@@ -70,6 +69,7 @@ public class CombineTextView extends AppCompatTextView {
         builder.append(mPrefix);
         end = builder.length();
         builder.setSpan(new ForegroundColorSpan(mPrefixColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new AbsoluteSizeSpan(prefixSize),start,end,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         start = end;
         builder.append(mMiddleText);
         end = builder.length();

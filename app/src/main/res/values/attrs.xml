@@ -51,6 +51,8 @@
         <attr name="android:text" />
         <!--文字的前缀，只支持字符串-->
         <attr name="prefix" format="string|reference" />
+        <!--  文字前缀的字体大小  -->
+        <attr name="prefix_text_size" format="dimension"/>
         <!--前缀文字的颜色，默认是红色-->
         <attr name="prefix_text_color" format="color|reference" />
         <!-- 中间文字  -->
