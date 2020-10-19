@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
 import android.util.AttributeSet;
@@ -69,7 +68,7 @@ public class CombineTextView extends AppCompatTextView {
         builder.append(mPrefix);
         end = builder.length();
         builder.setSpan(new ForegroundColorSpan(mPrefixColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(new AbsoluteSizeSpan(prefixSize),start,end,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        builder.setSpan(new AbsoluteSizeSpan(prefixSize),start,end,Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         start = end;
         builder.append(mMiddleText);
         end = builder.length();
@@ -77,7 +76,7 @@ public class CombineTextView extends AppCompatTextView {
         start = end;
         builder.append(mContent);
         end = builder.length();
-        builder.setSpan(new LeadingMarginSpan.Standard(0,(int)getTextSize()*mRestIntentSpace),0,end,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new LeadingMarginSpan.Standard(0,(int)getTextSize()*mRestIntentSpace),0,end,Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
         setText(builder);
     }
