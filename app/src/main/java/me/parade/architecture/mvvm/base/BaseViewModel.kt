@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import me.parade.architecture.mvvm.network.ExceptionHandle
-import com.example.mvvmdemo.basemoudle.network.ResponseThrowable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import me.parade.architecture.mvvm.network.ExceptionHandle
+import me.parade.architecture.mvvm.network.ResponseThrowable
 
 /**
  * @author : parade
@@ -60,9 +60,16 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 网络请求
+     * @param uiState 默认显示网络加载框，toast接口异常信息 ，可重写uiState改变状态,如果重写了其中一个值，其它的需要的也需要重写
+     * @param success 请求成功回调
+     * @param error 请求失败回调 默认toast error info
+     * @param complete 请求成功和失败都会回调
+     */
 
     fun <T> launch(
-        uiState: UIState = UIState(isShowLoadingDialog = true),
+        uiState: UIState = UIState(isShowLoadingDialog = true,isShowErrorToast = true),
         block: suspend CoroutineScope.() -> T,
         success: (suspend CoroutineScope.(T) -> Unit)? = null,
         error: (suspend CoroutineScope.(ResponseThrowable) -> Unit)? = null,

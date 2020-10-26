@@ -2,6 +2,7 @@ package me.parade.architecture.mvvm.util.ext
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
+import java.io.File
 import java.util.regex.Pattern
 
 /**
@@ -60,3 +61,32 @@ fun String.isSpace():Boolean{
  * 将字符串最后一个数字转成Int
  */
 fun String.lastCharToInt() = Character.getNumericValue(this.last())
+
+/**
+* 根据文件名称获取文件类型
+*/
+fun String.getFileExtension():String{
+    if (isSpace()) return this
+    val lastPoi = this.lastIndexOf(".")
+    val lastSep = this.lastIndexOf(File.separator)
+    if (lastPoi == -1 || lastSep>=lastPoi) return ""
+    return this.substring(lastPoi+1)
+}
+
+/**
+ * 根据文件全路径获取不带扩展名的文件名
+ */
+fun String.getFileNameNoExtension():String{
+    if (isSpace()) return this
+    val lastPoi = this.lastIndexOf(".")
+    val lastSep = this.lastIndexOf(File.separator)
+    if (lastSep == -1){
+        return if (lastPoi == -1) this else this.substring(0,lastPoi)
+    }
+
+    if (lastPoi == -1 || lastSep > lastPoi){
+        return this.substring(lastSep+1)
+    }
+
+    return this.substring(lastSep+1,lastPoi)
+}

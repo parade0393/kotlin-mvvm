@@ -82,7 +82,11 @@ public class CombineTextView extends AppCompatTextView {
     }
 
     public void setContent(String content){
-        this.mContent = content;
+        if (null == content) {
+            this.mContent = "";
+        }else {
+            this.mContent = content;
+        }
         setTextContent();
     }
 }

@@ -47,15 +47,15 @@ public class DrawableTextView extends AppCompatTextView {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.drawableText);
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DrawableTextView);
             try {
-                drawableLeft = a.getResourceId(R.styleable.drawableText_leftDrawable, 0);
-                drawableRight = a.getResourceId(R.styleable.drawableText_rightDrawable, 0);
-                drawableTop = a.getResourceId(R.styleable.drawableText_topDrawable, 0);
-                drawableBottom = a.getResourceId(R.styleable.drawableText_bottomDrawable, 0);
+                drawableLeft = a.getResourceId(R.styleable.DrawableTextView_leftDrawable, 0);
+                drawableRight = a.getResourceId(R.styleable.DrawableTextView_rightDrawable, 0);
+                drawableTop = a.getResourceId(R.styleable.DrawableTextView_topDrawable, 0);
+                drawableBottom = a.getResourceId(R.styleable.DrawableTextView_bottomDrawable, 0);
 
-                drawableWidth = a.getDimensionPixelSize(R.styleable.drawableText_drawableWidth, 30);
-                drawableHeight = a.getDimensionPixelSize(R.styleable.drawableText_drawableHeight, 30);
+                drawableWidth = a.getDimensionPixelSize(R.styleable.DrawableTextView_drawableWidth, 30);
+                drawableHeight = a.getDimensionPixelSize(R.styleable.DrawableTextView_drawableHeight, 30);
 
             } finally {
                 if (a != null) {

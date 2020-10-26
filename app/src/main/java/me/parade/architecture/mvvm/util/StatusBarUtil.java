@@ -18,10 +18,7 @@ import androidx.annotation.ColorInt;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.ColorUtils;
-import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -38,6 +35,10 @@ import me.parade.architecture.mvvm.R;
  */
 public class StatusBarUtil {
 
+    /**
+     * 设置状态栏颜色，状态栏字体颜色会随之改变
+     * @param statusColor 状态栏颜色
+     */
     private static void setStatusBarColor(Activity activity, int statusColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             EyesLollipop.setStatusBarColor(activity, statusColor);

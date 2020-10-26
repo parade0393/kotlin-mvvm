@@ -1,8 +1,6 @@
-package com.example.mvvmdemo.basemoudle.network
+package me.parade.architecture.mvvm.network
 
 import com.example.mvvmdemo.basemoudle.base.IBaseResponse
-import me.parade.architecture.mvvm.network.ERROR
-import java.lang.Exception
 
 /**
  * @author : parade

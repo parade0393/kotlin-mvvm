@@ -6,7 +6,7 @@ import java.util.*
 /**
  * @author : parade
  * date : 2020/9/4
- * description :
+ * description : Activity管理类
  */
 object ActivityLifecycleManager {
     private val mActivityList = LinkedList<Activity>()
