@@ -3,6 +3,7 @@ package me.parade.architecture.mvvm.util.ext
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import java.io.File
+import java.security.MessageDigest
 import java.util.regex.Pattern
 
 /**
@@ -12,18 +13,18 @@ import java.util.regex.Pattern
  */
 
 /** 是否是合法的json字符串 */
-fun String.isValidateJson():Boolean{
+fun String.isValidateJson(): Boolean {
     val jsonElement: JsonElement?
     try {
         jsonElement = JsonParser().parse(this)
-    }catch (e:Exception){
+    } catch (e: Exception) {
         return false
     }
 
-    if (jsonElement == null){
+    if (jsonElement == null) {
         return false
     }
-    return jsonElement.isJsonArray||jsonElement.isJsonObject||jsonElement.isJsonPrimitive
+    return jsonElement.isJsonArray || jsonElement.isJsonObject || jsonElement.isJsonPrimitive
 }
 
 /**
@@ -32,17 +33,17 @@ fun String.isValidateJson():Boolean{
  * @param position 第几次出现
  * @return 出现的位置 找不到返回-1
  */
-fun String.findIndexOfPosition(letter:String,position:Int):Int{
+fun String.findIndexOfPosition(letter: String, position: Int): Int {
     val pattern = Pattern.compile(letter)
     val matcher = pattern.matcher(this)
     var num = 0
-    while (matcher.find()){
+    while (matcher.find()) {
         num++
         if (num == position) break
     }
     return try {
         matcher.start()
-    }catch (e:IllegalStateException){
+    } catch (e: IllegalStateException) {
         -1
     }
 }
@@ -50,7 +51,7 @@ fun String.findIndexOfPosition(letter:String,position:Int):Int{
 /**
  * 一个字符串是否只有空格
  */
-fun String.isSpace():Boolean{
+fun String.isSpace(): Boolean {
     this.forEach {
         if (!Character.isWhitespace(it)) return false
     }
@@ -63,30 +64,38 @@ fun String.isSpace():Boolean{
 fun String.lastCharToInt() = Character.getNumericValue(this.last())
 
 /**
-* 根据文件名称获取文件类型
-*/
-fun String.getFileExtension():String{
+ * 根据文件名称获取文件类型
+ */
+fun String.getFileExtension(): String {
     if (isSpace()) return this
     val lastPoi = this.lastIndexOf(".")
     val lastSep = this.lastIndexOf(File.separator)
-    if (lastPoi == -1 || lastSep>=lastPoi) return ""
-    return this.substring(lastPoi+1)
+    if (lastPoi == -1 || lastSep >= lastPoi) return ""
+    return this.substring(lastPoi + 1)
 }
 
 /**
  * 根据文件全路径获取不带扩展名的文件名
  */
-fun String.getFileNameNoExtension():String{
+fun String.getFileNameNoExtension(): String {
     if (isSpace()) return this
     val lastPoi = this.lastIndexOf(".")
     val lastSep = this.lastIndexOf(File.separator)
-    if (lastSep == -1){
-        return if (lastPoi == -1) this else this.substring(0,lastPoi)
+    if (lastSep == -1) {
+        return if (lastPoi == -1) this else this.substring(0, lastPoi)
     }
 
-    if (lastPoi == -1 || lastSep > lastPoi){
-        return this.substring(lastSep+1)
+    if (lastPoi == -1 || lastSep > lastPoi) {
+        return this.substring(lastSep + 1)
     }
 
-    return this.substring(lastSep+1,lastPoi)
+    return this.substring(lastSep + 1, lastPoi)
+}
+
+/**
+ * 字符串MD5加密
+ */
+fun String.getMd5String(): String {
+    val instance = MessageDigest.getInstance("md5").also { it.update(this.toByteArray()) }
+    return instance.digest().joinToString(separator = "") { "%02x".format(it) }
 }
