@@ -2,7 +2,6 @@ package me.parade.architecture.mvvm.util.ext
 
 import android.util.Log
 import me.parade.architecture.mvvm.BuildConfig
-import java.lang.StringBuilder
 
 /**
  * Created by luyao
@@ -24,11 +23,11 @@ fun String.logi(tag: String = TAG) = log(LEVEL.I, tag, this)
 fun String.logw(tag: String = TAG) = log(LEVEL.W, tag, this)
 fun String.loge(tag: String = TAG) = log(LEVEL.E, tag, this)
 
-fun logv(tag: String = TAG,message:Any) = log(LEVEL.V, tag, message.toString())
-fun logd(tag: String = TAG,message:Any) = log(LEVEL.D, tag, message.toString())
-fun logi(tag: String = TAG,message:Any) = log(LEVEL.I, tag, message.toString())
-fun logw(tag: String = TAG,message:Any) = log(LEVEL.W, tag, message.toString())
-fun loge(tag: String = TAG,message:Any) = log(LEVEL.E, tag, message.toString())
+fun logv(message:Any,tag: String = TAG) = log(LEVEL.V, tag, message.toString())
+fun logd(message:Any,tag: String = TAG) = log(LEVEL.D, tag, message.toString())
+fun logi(message:Any,tag: String = TAG) = log(LEVEL.I, tag, message.toString())
+fun logw(message:Any,tag: String = TAG) = log(LEVEL.W, tag, message.toString())
+fun loge(message:Any,tag: String = TAG) = log(LEVEL.E, tag, message.toString())
 
 
 private fun log(level: LEVEL, tag: String,message: String) {

@@ -23,7 +23,7 @@ fun String.isValidateJson():Boolean{
     if (jsonElement == null){
         return false
     }
-    return jsonElement.isJsonObject
+    return jsonElement.isJsonArray||jsonElement.isJsonObject||jsonElement.isJsonPrimitive
 }
 
 /**
