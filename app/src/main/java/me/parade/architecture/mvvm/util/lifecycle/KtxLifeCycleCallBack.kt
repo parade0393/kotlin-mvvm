@@ -7,7 +7,7 @@ import android.os.Bundle
 /**
  * @author : parade
  * date : 2020/9/4
- * description :
+ * description :activity声明周期回调
  */
 class KtxLifeCycleCallBack: Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

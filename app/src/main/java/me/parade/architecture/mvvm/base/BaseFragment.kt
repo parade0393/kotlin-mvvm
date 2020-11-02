@@ -8,10 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.ToastUtils
 import me.parade.architecture.mvvm.base.BaseViewModel
+import me.parade.architecture.mvvm.util.ext.toast
 import me.parade.architecture.mvvm.view.LoadingDialog
 import java.lang.reflect.ParameterizedType
 
@@ -98,7 +97,7 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
         })
 
         viewModel.uiLiveEvent.showToastEvent.observe(viewLifecycleOwner, {
-            ToastUtils.showShort(it)
+           toast(it)
         })
 
         viewModel.uiLiveEvent.showMsgEvent.observe(viewLifecycleOwner, {

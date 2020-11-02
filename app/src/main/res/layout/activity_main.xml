@@ -10,14 +10,24 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:prefix="智慧：&#8195;&#8195;"
-        app:prefix_text_size="16sp"
-        app:middle_text="中华人民"
-        app:rest_intent_space="5"
         android:textSize="16sp"
-        tools:text="的请第三方第四次峰会超常发挥成功非常高更充分法定规划佛教护法都是九回复都是恢复的都是废话是非常的身份第三方的第三方的身份和的第三方黄金"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:middle_text="中华人民"
+        app:prefix="智慧：&#8195;&#8195;"
+        app:prefix_text_size="16sp"
+        app:rest_intent_space="5"
+        tools:text="的请第三方第四次峰会超常发挥成功非常高更充分法定规划佛教护法都是九回复都是恢复的都是废话是非常的身份第三方的第三方的身份和的第三方黄金" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="196dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
