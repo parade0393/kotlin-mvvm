@@ -4,8 +4,9 @@ import android.util.Log
 import me.parade.architecture.mvvm.BuildConfig
 
 /**
- * Created by luyao
- * on 2019/7/3 15:37
+ * @author : parade
+ * date : 2020/11/2
+ * description : 日志工具类
  */
 
 const val TAG = "ktx"

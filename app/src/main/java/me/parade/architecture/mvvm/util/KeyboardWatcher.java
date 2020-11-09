@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author : parade
  * date : 2020/9/7
- * description : 键盘监听
+ * description : 键盘监听（键盘弹起和键盘收起）
  */
 public class KeyboardWatcher implements ViewTreeObserver.OnGlobalLayoutListener {
 

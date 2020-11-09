@@ -9,4 +9,7 @@ import java.lang.reflect.Type
  * description :gson工具类
  */
 
+/**
+ * Gson泛型生成
+ */
 inline fun <reified T> genericType(): Type = object: TypeToken<T>() {}.type
