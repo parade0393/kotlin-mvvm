@@ -18,7 +18,8 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseActivity<VM: BaseViewModel,DB:ViewDataBinding>:AppCompatActivity() {
 
     protected lateinit var viewModel:VM
-    protected var mBinding:DB? = null
+//    protected var mBinding:DB? = null
+    protected lateinit var mBinding:DB
     private  var loadingDialog: LoadingDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
