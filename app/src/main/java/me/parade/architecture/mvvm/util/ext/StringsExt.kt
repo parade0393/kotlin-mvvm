@@ -99,3 +99,16 @@ fun String.getMd5String(): String {
     val instance = MessageDigest.getInstance("md5").also { it.update(this.toByteArray()) }
     return instance.digest().joinToString(separator = "") { "%02x".format(it) }
 }
+
+/**
+ * 从url中获取指定参数值
+ */
+fun String.getParamByUrl(url:String,name:String):String?{
+    url.plus("&")
+    val regex = "([?&])#?${name}=[a-zA-Z0-9]*(&)"
+    val pattern = Pattern.compile(regex)
+    val matcher = pattern.matcher(url)
+    return if (matcher.find()) {
+        matcher.group(0).split("=")[1].replace("&","")
+    } else null
+}

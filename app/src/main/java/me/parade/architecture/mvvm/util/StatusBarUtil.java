@@ -73,7 +73,7 @@ public class StatusBarUtil {
 
     /**
      * 设置状态栏颜色
-     * 状态栏字体颜色 font color
+     * @param color 状态栏背景颜色  会自动根据背景颜色修改字体颜色   如果此处设置白色  那么字体色就为黑色
      */
     public static void setStatusBarLightMode(Activity activity, int color) {
         StatusBarUtil.setStatusBarColor(activity, color);
