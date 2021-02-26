@@ -40,7 +40,7 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
 
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)){
             mBinding =  DataBindingUtil.inflate(inflater,getLayoutId(),container,false)
-            return mBinding?.root
+            return mBinding.root
         }
 
         return inflater.inflate(getLayoutId(),container,false)

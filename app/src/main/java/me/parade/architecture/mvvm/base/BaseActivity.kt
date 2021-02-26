@@ -85,6 +85,4 @@ abstract class BaseActivity<VM: BaseViewModel,DB:ViewDataBinding>:AppCompatActiv
         }
     }
 
-    open fun handleEvent(msg:String){}
-
 }
