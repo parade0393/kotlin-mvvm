@@ -14,6 +14,13 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //根据需要 自行选择添加的对应cpu类型的.so库。
+            //说明：运行和打包时，只与主模块中指定使用哪些so文件为准，其他module使用哪些都无所谓
+//            abiFilters 'armeabi-v7a', 'x86', 'x86_64'//使用模拟器运行时，'x86', 'x86_64'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a','x86'//使用真机运行时，只需'armeabi-v7a', 'arm64-v8a'
+        }
     }
 
     buildTypes {
@@ -74,5 +81,9 @@ dependencies {
 
     //万能适配器
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
+    //权限
+    implementation 'com.permissionx.guolindev:permissionx:1.4.0'
+    //压缩
+    implementation 'top.zibin:Luban:1.1.8'
 
 }
