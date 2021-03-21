@@ -1,4 +1,4 @@
-package me.parade.architecture.mvvm
+package me.parade.architecture.mvvm.demo
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -15,5 +15,5 @@ interface CommunityDao {
     fun getAll():List<CommunityEntity>
 
     @Insert
-    fun insertAll(vararg communityEntity:CommunityEntity)
+    fun insertAll(vararg communityEntity: CommunityEntity)
 }

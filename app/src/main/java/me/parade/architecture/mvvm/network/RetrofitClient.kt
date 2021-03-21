@@ -2,6 +2,7 @@ package me.parade.architecture.mvvm.network
 
 import com.safframework.http.interceptor.LoggingInterceptor
 import me.parade.architecture.mvvm.BuildConfig
+import me.parade.architecture.mvvm.data.Constant.BASE_URL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,7 +27,7 @@ class RetrofitClient() {
     init {
         retrofit = Retrofit.Builder()
             .client(getOkHttpClient())
-            .baseUrl("")
+            .baseUrl(BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -42,6 +43,6 @@ class RetrofitClient() {
     }
 
     fun<T> create(service:Class<T>):T{
-        return retrofit.create(service)
+        return retrofit.create(service)?: throw RuntimeException("Api service is null!")
     }
 }
