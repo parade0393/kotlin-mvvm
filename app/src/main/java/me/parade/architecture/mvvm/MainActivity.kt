@@ -20,5 +20,10 @@ class MainActivity : AppCompatActivity() {
             BaseApplication.applicationContext().putSpValue("int",1)
             toast(BaseApplication.applicationContext().getSpValue("int",0).toString())
         }
+
+        AppDataBase.getInstance().communityDao().insertAll(CommunityEntity("2020-11-12"
+        ,"街道",1,2,"洛阳","2024-12","4",0,"1",1,"小区1","小区1"
+        ,"2020-12","","","",1,"","",""))
+//        AppDataBase.getInstance().communityDao().insertAll(CommunityEntity(1,"xia","2020-11","街道","2020-11-12"))
     }
 }
