@@ -9,7 +9,7 @@ import me.parade.architecture.mvvm.BuildConfig
  * description : 日志工具类
  */
 
-const val TAG = "ktx"
+const val TAG = "parade0393"
 
 var showLog = BuildConfig.DEBUG
 var showStackTrace = true

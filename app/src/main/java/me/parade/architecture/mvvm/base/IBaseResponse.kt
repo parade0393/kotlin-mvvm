@@ -7,6 +7,6 @@ package com.example.mvvmdemo.basemoudle.base
 interface IBaseResponse<T> {
     fun code(): Int
     fun msg(): String
-    fun data(): T
+    fun data(): T?
     fun isSuccess(): Boolean
 }

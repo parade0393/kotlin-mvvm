@@ -10,9 +10,10 @@ import me.parade.architecture.mvvm.base.BaseApplication
  * date : 2021/3/20
  * description :
  */
-@Database(entities = arrayOf(CommunityEntity::class), version = 1)
+@Database(entities = [HomeListBean::class,CommunityEntity::class ], version = 1)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun communityDao(): CommunityDao
+    abstract fun homeLocaData(): HomeDao
 
     companion object {
         fun getInstance() = SingleHoler.INSTANCE

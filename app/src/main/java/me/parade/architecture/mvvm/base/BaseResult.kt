@@ -9,7 +9,7 @@ import com.example.mvvmdemo.basemoudle.base.IBaseResponse
 data class BaseResult<T>(
     val errorMsg: String,
     val errorCode: Int,
-    val data: T
+    val data: T?
 ) : IBaseResponse<T> {
 
     override fun code() = errorCode

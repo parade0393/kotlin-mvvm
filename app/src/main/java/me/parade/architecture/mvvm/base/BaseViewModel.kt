@@ -1,8 +1,6 @@
 package me.parade.architecture.mvvm.base
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.blankj.utilcode.util.Utils
 import com.example.mvvmdemo.basemoudle.base.IBaseResponse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -15,9 +13,7 @@ import me.parade.architecture.mvvm.network.ResponseThrowable
  * date : 2020/7/11
  * description : ViewModel基类
  */
-abstract class BaseViewModel(
-    application: Application = Utils.getApp()
-) : AndroidViewModel(application), LifecycleObserver {
+abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
     private val _isShowLoadingView = MutableLiveData<Boolean>()
     val isShowLoadingView: LiveData<Boolean>
@@ -48,7 +44,6 @@ abstract class BaseViewModel(
      */
     private suspend fun handleException(
         block: suspend CoroutineScope.() -> Unit,
-
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit,
         complete: suspend CoroutineScope.() -> Unit
     ) {
@@ -111,7 +106,7 @@ abstract class BaseViewModel(
     fun <T> launchFilterResult(
         uiState: UIState = UIState(isShowLoadingDialog = true, isShowErrorToast = true),
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
-        success: (T) -> Unit,
+        success: (T?) -> Unit,
         error: (suspend CoroutineScope.(ResponseThrowable) -> Unit)? = null,
         complete: () -> Unit = {},
     ) {

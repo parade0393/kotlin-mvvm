@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import com.example.mvvmdemo.basemoudle.base.BaseFragment
 import me.parade.architecture.mvvm.R
+import me.parade.architecture.mvvm.util.ext.toast
 
 /**
  * @author : parade
@@ -15,6 +16,12 @@ class HomeFragment:BaseFragment<HomeViewMmodel,ViewDataBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
 //        viewModel.getHomeList(0)
-        viewModel.getCollection()
+        viewModel.getHomeList(0,false)
+        viewModel.homeListBean.observe(this){bean->
+            bean?.let {
+                toast(it.datas[0].title?:"无")
+            }
+        }
+
     }
 }
