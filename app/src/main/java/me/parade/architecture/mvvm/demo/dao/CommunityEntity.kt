@@ -1,4 +1,4 @@
-package me.parade.architecture.mvvm.demo
+package me.parade.architecture.mvvm.demo.dao
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

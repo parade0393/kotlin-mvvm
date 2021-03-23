@@ -1,6 +1,7 @@
 package me.parade.architecture.mvvm.demo
 
 import me.parade.architecture.mvvm.base.BaseModel
+import me.parade.architecture.mvvm.demo.dao.HomeDao
 
 /**
  * @author : parade

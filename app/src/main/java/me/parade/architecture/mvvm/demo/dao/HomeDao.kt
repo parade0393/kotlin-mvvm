@@ -1,6 +1,7 @@
-package me.parade.architecture.mvvm.demo
+package me.parade.architecture.mvvm.demo.dao
 
 import androidx.room.*
+import me.parade.architecture.mvvm.demo.HomeListBean
 
 /**
  *   @auther : Aleyn

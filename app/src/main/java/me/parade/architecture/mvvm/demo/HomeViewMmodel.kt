@@ -3,6 +3,7 @@ package me.parade.architecture.mvvm.demo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import me.parade.architecture.mvvm.base.BaseViewModel
+import me.parade.architecture.mvvm.demo.dao.AppDataBase
 
 /**
  * @author : parade
@@ -10,7 +11,8 @@ import me.parade.architecture.mvvm.base.BaseViewModel
  * description :
  */
 class HomeViewMmodel:BaseViewModel() {
-    private val homeReposity by lazy { HomeReposity.getInstance(HomeNetWork.getInstance(),AppDataBase.getInstance().homeLocaData()) }
+    private val homeReposity by lazy { HomeReposity.getInstance(HomeNetWork.getInstance(),
+        AppDataBase.getInstance().homeLocaData()) }
     private val _homeListBean = MutableLiveData<HomeListBean>()
     val homeListBean:LiveData<HomeListBean> = _homeListBean
 

@@ -3,6 +3,7 @@ package me.parade.architecture.mvvm.demo
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import me.parade.architecture.mvvm.demo.dao.CommunityEntity
 
 /**
  * @author : parade
