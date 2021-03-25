@@ -51,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressDrawable="#24C789"
             android:max="100" />
 
         <LinearLayout

@@ -68,9 +68,10 @@ public class LoadingDialog extends Dialog {
         if (window != null) {
             window.setBackgroundDrawableResource(android.R.color.transparent);
             WindowManager.LayoutParams params = window.getAttributes();
-            params.width = WindowManager.LayoutParams.MATCH_PARENT;//dialog的宽占满全屏，必须配合setBackgroundDrawableResource设置透明使用，否则不会宽度全屏
+            params.width = WindowManager.LayoutParams.WRAP_CONTENT;//dialog的宽占满全屏，必须配合setBackgroundDrawableResource设置透明使用，否则不会宽度全屏
             params.height = WindowManager.LayoutParams.WRAP_CONTENT;//dialog的高
             params.gravity = Gravity.CENTER;
+            window.setDimAmount(0);
             window.setAttributes(params);
         }
 

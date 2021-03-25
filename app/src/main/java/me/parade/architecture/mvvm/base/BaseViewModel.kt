@@ -67,33 +67,30 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
      */
 
     fun launch(
-        uiState: UIState = UIState(isShowLoadingDialog = true, isShowErrorToast = true),
+        isShowDialog: Boolean = true,
         block: suspend CoroutineScope.() -> Unit,
         error: (suspend CoroutineScope.(ResponseThrowable) -> Unit)? = null,
-        complete: (suspend CoroutineScope.() -> Unit)? = null
-    ) =
-        with(uiState) {
-            if (isShowLoadingDialog) uiLiveEvent.showDialogEvent.call()
-            if (isShowLoadingView) _isShowLoadingView.value = true
-            if (isShowErrorView) _isShowErrorView.value = false
-            launchUI {
-                handleException(
-                    block = withContext(Dispatchers.IO) { block },
-                    error = {
-                        withContext(Dispatchers.Main) {
-                            if (isShowErrorView) _isShowErrorView.value = true
-                            if (isShowErrorToast) uiLiveEvent.showToastEvent.postValue("${it.errorCode}:${it.errorMessage}")
-                            error?.invoke(this, it)
-                        }
-                    },
-                    complete = {
-                        if (isShowLoadingDialog) uiLiveEvent.dismissDialogEvent.call()
-                        if (isShowLoadingView) _isShowLoadingView.value = false
-                        complete?.invoke(this)
-                    }
-                )
-            }
+        complete: suspend CoroutineScope.() -> Unit = {}
+    ) {
+        if (isShowDialog) {
+            uiLiveEvent.showDialogEvent.call()
         }
+        launchUI {
+            handleException(
+                block = withContext(Dispatchers.IO) { block },
+                error = {
+                    uiLiveEvent.showToastEvent.postValue("${it.errorCode}:${it.errorMessage}")
+                    error?.invoke(this, it)
+
+                },
+                complete = {
+                    uiLiveEvent.dismissDialogEvent.call()
+                    complete()
+                }
+            )
+        }
+    }
+
 
     /**
      * 过滤请求结果，其他全抛异常
@@ -104,59 +101,42 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
      * @param complete 完成回调（无论成功失败都会调用）
      */
     fun <T> launchFilterResult(
-        uiState: UIState = UIState(isShowLoadingDialog = true, isShowErrorToast = true),
+        isShowDialog: Boolean = true,
         block: suspend CoroutineScope.() -> IBaseResponse<T>,
         success: (T?) -> Unit,
-        error: (suspend CoroutineScope.(ResponseThrowable) -> Unit)? = null,
+        error: (ResponseThrowable) -> Unit = {},
         complete: () -> Unit = {},
     ) {
-        with(uiState) {
-            if (isShowLoadingDialog) uiLiveEvent.showDialogEvent.call()
-            if (isShowLoadingView) _isShowLoadingView.value = true
-            if (isShowErrorView) _isShowErrorView.value = false
-            launchUI {
-                handleException(
-                    {
-                        withContext(Dispatchers.IO) {
-                            block().let {
-                                if (it.isSuccess()) it.data()
-                                else throw ResponseThrowable(it.code(), it.msg())
-                            }
-                        }.also { success(it) }
-                    },
-                    {
-                        if (isShowErrorView) _isShowErrorView.value = true
-                        if (isShowErrorToast) uiLiveEvent.showToastEvent.postValue("${it.errorCode}:${it.errorMessage}")
-                        error?.invoke(this, it)
-                    }, {
-                        if (isShowLoadingDialog) uiLiveEvent.dismissDialogEvent.call()
-                        if (isShowLoadingView) _isShowLoadingView.value = false
-                        complete.invoke()
-                    }
-                )
-            }
+        if (isShowDialog) {
+            uiLiveEvent.showDialogEvent.call()
         }
+        launchUI {
+            handleException(
+                {
+                    withContext(Dispatchers.IO) {
+                        block().let {
+                            if (it.isSuccess()) it.data()
+                            else throw ResponseThrowable(it.code(), it.msg())
+                        }
+                    }.also { success(it) }
+                },
+                {
+                    uiLiveEvent.showToastEvent.postValue("${it.errorCode}:${it.errorMessage}")
+                    error(it)
+                }, {
+                    uiLiveEvent.dismissDialogEvent.call()
+                    complete.invoke()
+                }
+            )
+        }
+
     }
 
 
     class UILiveEvent {
         val showDialogEvent by lazy { SingleLiveEvent<Boolean>() }
-        val dismissDialogEvent by lazy { SingleLiveEvent<Boolean>() }
+        val dismissDialogEvent by lazy { SingleLiveEvent<Void>() }
         val showToastEvent by lazy { SingleLiveEvent<String>() }
         val showMsgEvent by lazy { SingleLiveEvent<String>() }
     }
 }
-
-/**
- *UI状态
- * @param isShowLoadingDialog 是否现在加载中进度
- * @param isShowLoadingView 是否显示加载中页面
- * @param isShowErrorToast 是否弹出error Toast
- * @param isShowErrorView 是否显示错误页面
- */
-data class UIState(
-    val isShowLoadingDialog: Boolean = false,
-    val isShowLoadingView: Boolean = false,
-    val isShowErrorToast: Boolean = false,
-    val isShowErrorView: Boolean = false
-)
