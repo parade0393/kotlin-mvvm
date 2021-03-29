@@ -43,6 +43,18 @@ android {
     buildFeatures{
         dataBinding true
     }
+
+    android.applicationVariants.all { variant ->
+        //这样配置是解決更新Android Studio 3.0以及gradle:3.0.0之后，出现Cannot set the value of read-only property ‘outputFile’报错问题
+        variant.outputs.all {output->
+            // 输出apk名称为wuye_manager-v1.0.0-0329_0944-release.apk
+            outputFileName = "wuye_manager-v${defaultConfig.versionName}-${releaseTime()}-${output.baseName}.apk"
+        }
+    }
+}
+
+static def releaseTime() {
+    return new Date().format("MMdd_HHmm", TimeZone.default)
 }
 
 dependencies {

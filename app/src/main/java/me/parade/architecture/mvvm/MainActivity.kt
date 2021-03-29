@@ -10,9 +10,7 @@ class MainActivity : BaseActivity<NoViewModel,ViewDataBinding>() {
     override fun getLayoutId() = R.layout.activity_main
 
     override fun initView(savedInstanceState: Bundle?) {
-        /*findViewById<Button>(R.id.button).setOnClickListener{
-            startKtxActivity<Paging3Activity>()
-        }*/
+
     }
 
 }
