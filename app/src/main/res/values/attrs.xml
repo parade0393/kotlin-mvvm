@@ -120,4 +120,9 @@
         <attr name="max_line" format="integer" />
         <attr name="center_horizontal" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="RectArcView">
+        <attr name="m_arcHeight" format="dimension"/>
+        <attr name="m_bgcolor" format="color"/>
+    </declare-styleable>
 </resources>
