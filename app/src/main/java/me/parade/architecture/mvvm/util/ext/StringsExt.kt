@@ -1,5 +1,8 @@
 package me.parade.architecture.mvvm.util.ext
 
+import android.os.Build
+import android.text.Html
+import android.widget.TextView
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import java.io.File
@@ -46,6 +49,20 @@ fun String.findIndexOfPosition(letter: String, position: Int): Int {
     } catch (e: IllegalStateException) {
         -1
     }
+}
+
+/**
+ * 一个字符串里某个特定的字符串出现的次数
+ * @param letter 要匹配的字符串
+ */
+fun String.timesOfStr(letter: String):Int{
+    val pattern = Pattern.compile(letter)
+    val matcher = pattern.matcher(this)
+    var times = 0
+    while (matcher.find()){
+        times++
+    }
+    return times
 }
 
 /**
@@ -111,4 +128,23 @@ fun String.getParamByUrl(url:String,name:String):String?{
     return if (matcher.find()) {
         matcher.group(0).split("=")[1].replace("&","")
     } else null
+}
+//解析成Html
+fun String.parseHtml(textView: TextView) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        textView.setText(Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT))
+    } else {
+        textView.setText(Html.fromHtml(this))
+    }
+}
+
+/**
+ * 实现手机号中间4位显示*或者切换不显示*
+ * @param originalPhone 真实手机号
+ */
+fun String.handlePhoneMiddleText(originalPhone: String): String {
+    return if (contains("*")) originalPhone else this.replace(
+        Regex("(\\d{3})\\d{4}(\\d{4})"),
+        "$1****$2"
+    )
 }

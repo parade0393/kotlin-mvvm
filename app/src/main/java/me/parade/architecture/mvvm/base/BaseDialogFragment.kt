@@ -1,17 +1,16 @@
 package com.example.mvvmdemo.basemoudle.base
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import me.parade.architecture.mvvm.base.BaseViewModel
+import me.parade.architecture.mvvm.util.ext.logd
 import me.parade.architecture.mvvm.util.ext.toast
 import me.parade.architecture.mvvm.view.LoadingDialog
 import java.lang.reflect.ParameterizedType
@@ -19,13 +18,13 @@ import java.lang.reflect.ParameterizedType
 /**
  * @author : parade
  * date : 2020 07 2020/7/24
- * description :Fragment基类
+ * description :DialogFragment基类
  */
-abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
+abstract class BaseDialogFragment<VM: BaseViewModel,DB:ViewDataBinding>:DialogFragment() {
     protected lateinit var viewModel: VM
 
 //    protected var mBinding: DB? = null
-    protected lateinit var  mBinding: DB
+    protected lateinit var mBinding: DB
 
 
     private  var loadingDialog: LoadingDialog? = null
@@ -96,6 +95,7 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
         })
 
         viewModel.uiLiveEvent.dismissDialogEvent.observe(viewLifecycleOwner, {
+            "dismissDialogEvent".logd()
             dismissDialog()
         })
 
@@ -111,7 +111,7 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
     /**
      *显示加载框
      */
-    private fun showLoading(){
+    protected fun showLoading(){
         if (loadingDialog == null){
             loadingDialog = LoadingDialog(requireContext())
         }
@@ -119,9 +119,9 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
     }
 
     /**
-     * 关闭加载框,页面如果有SwipeRefreshLayout，可以在这里结束SwipeRefreshLayout刷新
+     * 关闭加载框
      */
-    open fun dismissDialog(){
+    protected fun dismissDialog(){
         loadingDialog?.hideDialog()
     }
 
@@ -142,11 +142,5 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
      * 懒加载
      */
     open fun lazyLoad(){}
-
-    fun String.callPhone() {
-        Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:${this}")).also {
-            startActivity(it)
-        }
-    }
 
 }

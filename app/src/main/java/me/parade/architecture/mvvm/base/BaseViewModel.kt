@@ -79,7 +79,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
             handleException(
                 block = withContext(Dispatchers.IO) { block },
                 error = {
-                    uiLiveEvent.showToastEvent.postValue("${it.errorCode}:${it.errorMessage}")
+                    uiLiveEvent.showToastEvent.postValue(it.errorMessage)
                     error?.invoke(this, it)
 
                 },
@@ -121,7 +121,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                     }.also { success(it) }
                 },
                 {
-                    uiLiveEvent.showToastEvent.postValue("${it.errorCode}:${it.errorMessage}")
+                    uiLiveEvent.showToastEvent.postValue(it.errorMessage)
                     error(it)
                 }, {
                     uiLiveEvent.dismissDialogEvent.call()

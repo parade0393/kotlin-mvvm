@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".demo.pageing3.Paging3Activity"></activity>
+        <activity android:name="com.jianqi.wuye.base.webview.BaseWebViewActivity"/>
+        <activity android:name=".demo.pageing3.Paging3Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -22,6 +22,7 @@ import me.parade.architecture.mvvm.base.BaseActivity
 import me.parade.architecture.mvvm.base.webview.PhotoUtils
 import me.parade.architecture.mvvm.base.webview.WebViewSelectDialog
 import me.parade.architecture.mvvm.databinding.ActivityBaseWebviewBinding
+import me.parade.architecture.mvvm.util.ext.isValidateJson
 import me.parade.architecture.mvvm.util.ext.logd
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
@@ -83,6 +84,7 @@ class BaseWebViewActivity : BaseActivity<NoViewModel, ActivityBaseWebviewBinding
             domStorageEnabled = true
             databaseEnabled = true
             allowFileAccess = true//可以读取文件缓存
+            useWideViewPort = true//支持viewport
         }
         mBinding.webViewBase.apply {
             webChromeClient = MyWebChromeClient()
@@ -123,6 +125,15 @@ class BaseWebViewActivity : BaseActivity<NoViewModel, ActivityBaseWebviewBinding
         //设置标题
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+//            quickJs("appCallBack",null,"true")
+            mBinding.webViewBase.post {
+                mBinding.webViewBase.evaluateJavascript("javascript:callBack(_that)(true)",object :ValueCallback<String>{
+                    override fun onReceiveValue(value: String?) {
+                        "从后h5传来的的的》》》》${value}".logd()
+                    }
+
+                })
+            }
         }
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
@@ -433,5 +444,54 @@ class BaseWebViewActivity : BaseActivity<NoViewModel, ActivityBaseWebviewBinding
         fun start()
         fun onSuccess(file: File?)
         fun onError(throwable: Throwable?)
+    }
+
+    fun quickJs(method: String, callback: ValueCallback<String>?, vararg params: String?) {
+        val stringBuilder = StringBuilder()
+        stringBuilder.append("javascript:${method}")
+        if (params == null || params.isEmpty()) {
+            stringBuilder.append("()")
+        } else {
+            stringBuilder.append("(").append(concat(*params as Array<out String>)).append(")")
+        }
+        "jsme:::${stringBuilder}".logd()
+        callJs(stringBuilder.toString(), callback)
+    }
+
+    private fun concat(vararg params: String): String {
+        val stringBuilder = StringBuilder()
+
+        params.forEachIndexed { index, s ->
+            if (!s.isValidateJson()) {
+                stringBuilder.append("\"").append(params).append("\"")
+            } else {
+                stringBuilder.append(s)
+            }
+            if (index != params.size - 1) {
+                stringBuilder.append(" , ")
+            }
+        }
+        return stringBuilder.toString()
+    }
+
+    private fun callJs(js: String, callBack: ValueCallback<String>?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            evaluateJs(js, callBack)
+        } else {
+            loadJs(js)
+        }
+    }
+
+    private fun evaluateJs(js: String, callBack: ValueCallback<String>?) {
+        mBinding.webViewBase.evaluateJavascript(js, object : ValueCallback<String> {
+            override fun onReceiveValue(value: String?) {
+                callBack?.onReceiveValue(value)
+            }
+
+        })
+    }
+
+    private fun loadJs(js: String) {
+        mBinding.webViewBase.loadUrl(js)
     }
 }

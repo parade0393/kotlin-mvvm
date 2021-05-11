@@ -63,7 +63,7 @@ public class CombineTextView extends AppCompatTextView {
 
 
     private void setTextContent() {
-        int start = 0,end = 0;
+        int start = 0,end;
         SpannableStringBuilder builder = new SpannableStringBuilder();
         builder.append(mPrefix);
         end = builder.length();

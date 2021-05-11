@@ -107,4 +107,17 @@
         <attr name="sb_uncheckbutton_color" format="reference|color"/>
 
     </declare-styleable>
+
+    <declare-styleable name="CustomRoundAngleImageView">
+        <attr name="radius" format="dimension"/>
+        <attr name="left_top_radius" format="dimension"/>
+        <attr name="right_top_radius" format="dimension"/>
+        <attr name="right_bottom_radius" format="dimension"/>
+        <attr name="left_bottom_radius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="XFlowLayout">
+        <attr name="max_line" format="integer" />
+        <attr name="center_horizontal" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -11,7 +11,7 @@
             android:id="@+id/btn_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="测试防抖动"
+            android:text="调h5"
             android:padding="5dp"
            android:background="@color/colorAccent"
             app:layout_constraintBottom_toTopOf="@+id/recycler_view"
