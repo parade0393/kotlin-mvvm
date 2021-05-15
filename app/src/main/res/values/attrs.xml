@@ -125,4 +125,25 @@
         <attr name="m_arcHeight" format="dimension"/>
         <attr name="m_bgcolor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="BottomNavView">
+        <!--  文本字号  -->
+        <attr name="titleSize" format="dimension"/>
+        <!--  普通状态下的颜色  -->
+        <attr name="normalColor" format="color"/>
+        <!--  选中状态下的颜色 -->
+        <attr name="selectedColor" format="color"/>
+        <!--  文本上边距 -->
+        <attr name="titleTopMargin" format="dimension"/>
+        <!--  文本下边距 -->
+        <attr name="titleBottomMargin" format="dimension"/>
+        <!--  未读消息的背景 -->
+        <attr name="unReadBackground" format="reference"/>
+        <!-- 未读消息距顶部的距离 -->
+        <attr name="unReadNumTopMargin" format="dimension"/>
+        <!--  未读数字的最大值  -->
+        <attr name="maxUnreadNum" format="integer"/>
+        <attr name="haveMiddleItem" format="boolean"/>
+
+    </declare-styleable>
 </resources>
