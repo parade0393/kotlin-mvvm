@@ -84,6 +84,7 @@ class BaseWebViewActivity : BaseActivity<NoViewModel, ActivityBaseWebviewBinding
             domStorageEnabled = true
             databaseEnabled = true
             allowFileAccess = true//可以读取文件缓存
+            //使用了这属性之后就无法调整webview中图片大小了，比如设置最大宽度为屏幕的90%就失效了
             useWideViewPort = true//支持viewport
         }
         mBinding.webViewBase.apply {
