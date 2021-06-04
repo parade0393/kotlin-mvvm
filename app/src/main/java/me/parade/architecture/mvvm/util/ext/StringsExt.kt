@@ -118,15 +118,15 @@ fun String.getMd5String(): String {
 }
 
 /**
- * 从url中获取指定参数值
+ * 从url中获取指定参数值 url 符合以下格式?id=3&type=tre,最前面的有?号
  */
-fun String.getParamByUrl(url:String,name:String):String?{
-    url.plus("&")
-    val regex = "([?&])#?${name}=[a-zA-Z0-9]*(&)"
+fun String.getParamByUrl(name:String):String?{
+    val ac = this.plus("&")
+    val regex = "([?&])#?${name}=[a-zA-Z0-9]*(&)"//这个可能合理，如果只有一个参数可能就获取不到了
     val pattern = Pattern.compile(regex)
-    val matcher = pattern.matcher(url)
+    val matcher = pattern.matcher(ac)
     return if (matcher.find()) {
-        matcher.group(0).split("=")[1].replace("&","")
+        matcher.group(0).split("=")[1].replace("&", "")
     } else null
 }
 //解析成Html

@@ -89,4 +89,12 @@ public class CombineTextView extends AppCompatTextView {
         }
         setTextContent();
     }
+    public void setmPrefix(String prefix){
+        if (prefix == null){
+            this.mPrefix = "";
+        }else {
+            this.mPrefix = prefix;
+        }
+        setTextContent();
+    }
 }
