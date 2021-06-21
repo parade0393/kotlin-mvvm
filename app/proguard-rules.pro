@@ -33,7 +33,16 @@
 #保证实体类不被混淆
 -keep class com.jianqi.wuye.data.bean.**{*;}
 
-#########以下是项目通用常用混淆规则#######################
+#创蓝闪验SDK
+-dontwarn com.cmic.sso.sdk.**
+-dontwarn com.unikuwei.mianmi.account.shield.**
+-dontwarn com.sdk.**
+-keep class com.cmic.sso.sdk.**{*;}
+-keep class com.sdk.** { *;}
+-keep class com.unikuwei.mianmi.account.shield.** {*;}
+-keep class cn.com.chinatelecom.account.api.**{*;}
+
+#########以下是所有项目通用#######################
 
 # 保留四大组件，自定义的Application等这些类不被混淆
 -keep public class * extends android.app.Activity
@@ -45,7 +54,7 @@
 -keep public class * extends android.preference.Preference
 
 
-   #kotlin
+# kotlin
 -keep class kotlin.** { *; }
 -keep class kotlin.Metadata { *; }
 -dontwarn kotlin.**
@@ -79,6 +88,12 @@
 -dontnote com.google.android.material.**
 -dontwarn androidx.**
 -keep class * extends androidx.lifecycle.ViewModel.**
+-keep class * implements androidx.viewbinding.ViewBinding {
+    *;
+}
+-keepclassmembers public class * extends androidx.lifecycle.ViewModel {
+    public <init>(...);
+}
 #AndroidX混淆结束
 
 # 避免混淆自定义控件类的 get/set 方法和构造函数
@@ -129,12 +144,18 @@
 -keepattributes JavascriptInterface
 
 ##Gson
--keepattributes Signature
 -keepattributes *Annotation*
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
 # Application classes that will be serialized/deserialized over Gson
--keep class com.sunloto.shandong.bean.** { *;}
+# -keep class com.google.gson.examples.android.model.** { <fields>; }
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
 ## Glide
 -keep public class * implements com.bumptech.glide.module.AppGlideModule
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -222,3 +243,65 @@
 
 -dontwarn io.reactivex.internal.util.unsafe.**
 #Glide
+
+## banner
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
+}
+
+##高德地图================================
+##3D 地图 V5.0.0之前：
+-keep   class com.amap.api.maps.**{*;}
+-keep   class com.autonavi.amap.mapcore.*{*;}
+-keep   class com.amap.api.trace.**{*;}
+
+##3D 地图 V5.0.0之后：
+-keep   class com.amap.api.maps.**{*;}
+-keep   class com.autonavi.**{*;}
+-keep   class com.amap.api.trace.**{*;}
+
+##定位
+-keep class com.amap.api.location.**{*;}
+-keep class com.amap.api.fence.**{*;}
+-keep class com.loc.**{*;}
+-keep class com.autonavi.aps.amapapi.model.**{*;}
+
+##搜索
+-keep   class com.amap.api.services.**{*;}
+
+##2D地图
+-keep class com.amap.api.maps2d.**{*;}
+-keep class com.amap.api.mapcore2d.**{*;}
+
+##导航
+-keep class com.amap.api.navi.**{*;}
+-keep class com.autonavi.**{*;}
+##高德地图================================
+
+##XPopup
+-dontwarn com.lxj.xpopup.widget.**
+-keep class com.lxj.xpopup.widget.**{*;}
+
+-keep class **_FragmentFinder { *; }
+-keep class androidx.fragment.app.* { *; }
+
+-keep class com.qmuiteam.qmui.arch.record.RecordIdClassMap { *; }
+-keep class com.qmuiteam.qmui.arch.record.RecordIdClassMapImpl { *; }
+
+-keep class com.qmuiteam.qmui.arch.scheme.SchemeMap {*;}
+-keep class com.qmuiteam.qmui.arch.scheme.SchemeMapImpl {*;}
+
+## LiveEventBus的配置
+-dontwarn com.jeremyliao.liveeventbus.**
+-keep class com.jeremyliao.liveeventbus.** { *; }
+-keep class androidx.lifecycle.** { *; }
+-keep class androidx.arch.core.** { *; }
+

@@ -3,6 +3,17 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
+
+    //必须放在最上面
+   /* signingConfigs {
+        other{
+            storeFile file('..\\..\\key\\wuyeother.keystore')
+            storePassword 'xxxx'
+            keyAlias 'xxxx.keystore'
+            keyPassword 'xxxx'
+        }
+
+    }*/
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -23,10 +34,21 @@ android {
         }
     }
 
+    //配置build类型 会自动创建debug build类型
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true //这个是用来开启删除无用代码，比如没有引用到的代码
+            shrinkResources true //这个是用来开启删除无用资源，也就是没有被引用的文件
+            zipAlignEnabled true //优化开启后,它提高了Applications与Android系统的交互效率
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.SingConfig
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.SingConfig
         }
     }
 
@@ -43,11 +65,50 @@ android {
         dataBinding true
     }
 
+    //配置源代码集
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+       /* guanghecheng {
+            java.srcDir('src/guanghecheng/java')
+            res.srcDir('src/guanghecheng/res')
+        }
+        shentai {
+            java.srcDir('src/shentai/java')
+            res.srcDir('src/shentai/res')
+        }
+
+        chuangshou {
+            java.srcDir('src/chuangshou/java')
+            res.srcDir('src/chuangshou/res')
+        }*/
+    }
+
+    //渠道配置,这里不同渠道的签名其实是可以一样的，只需要保证包名+签名一致即可
+    flavorDimensions "app"//渠道组，必须要配置
+    productFlavors {
+        chuangshou{
+            versionCode 2
+            versionName "1.0.1"
+            resValue "string", "app_name", "kotlin-mvvm"
+            manifestPlaceholders = [
+                    AMAP_APIKEY : "9754f9ab2233ac608f04de83f08571b1"//高德地图ApiKey
+            ]
+            buildConfigField "String", "BASE_URL", "\"http://csapi.dongben.cc:8001/api/\""
+            buildConfigField "String", "BASE_WEB_URL", "\"http://cswu.dongben.cc:8062/#/\""
+            buildConfigField "String", "WX_APPID", "\"wxb6a2e4eda6241d21\""
+            buildConfigField "int" , "G_C_ID" , '63'
+            buildConfigField "String" , "SHAN_YAN_APP_ID" , "\"ylR8wy7A\""
+            buildConfigField "String", "BUGGLY_APPID", "\"cc0973f502\""
+        }
+    }
+
     android.applicationVariants.all { variant ->
         //这样配置是解決更新Android Studio 3.0以及gradle:3.0.0之后，出现Cannot set the value of read-only property ‘outputFile’报错问题
         variant.outputs.all {output->
             // 输出apk名称为wuye_manager-v1.0.0-0329_0944-release.apk
-            outputFileName = "wuye_manager-v${defaultConfig.versionName}-${releaseTime()}-${output.baseName}.apk"
+            outputFileName = "wuye-v${variant.productFlavors[0].versionName}-${releaseTime()}-${output.baseName}.apk"
         }
     }
 }
