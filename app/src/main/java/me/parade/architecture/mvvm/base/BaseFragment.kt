@@ -106,6 +106,17 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
         viewModel.uiLiveEvent.showMsgEvent.observe(viewLifecycleOwner, {
             handleEvent(it)
         })
+
+        viewModel.uiLiveEvent.completeEvent.observe(viewLifecycleOwner,{
+            handleComplete()
+        })
+    }
+
+    /**
+     * 如果页面有下拉刷新，可以重写这个方法，关闭下拉加载进度条
+     */
+    open fun handleComplete() {
+
     }
 
     /**
@@ -121,7 +132,7 @@ abstract class BaseFragment<VM: BaseViewModel,DB:ViewDataBinding>:Fragment() {
     /**
      * 关闭加载框,页面如果有SwipeRefreshLayout，可以在这里结束SwipeRefreshLayout刷新
      */
-    open fun dismissDialog(){
+    private fun dismissDialog(){
         loadingDialog?.hideDialog()
     }
 

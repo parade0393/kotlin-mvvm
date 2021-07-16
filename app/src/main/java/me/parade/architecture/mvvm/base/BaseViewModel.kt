@@ -15,15 +15,6 @@ import me.parade.architecture.mvvm.network.ResponseThrowable
  */
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
-    private val _isShowLoadingView = MutableLiveData<Boolean>()
-    val isShowLoadingView: LiveData<Boolean>
-        get() = _isShowLoadingView
-
-    private val _isShowErrorView = MutableLiveData<Boolean>()
-    val isShowErrorView: LiveData<Boolean>
-        get() = _isShowErrorView
-
-
     val uiLiveEvent by lazy { UILiveEvent() }
 
     /**
@@ -87,6 +78,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                     if (isShowDialog){
                         uiLiveEvent.dismissDialogEvent.call()
                     }
+                    uiLiveEvent.completeEvent.call()
                     complete()
                 }
             )
@@ -129,6 +121,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                     if (isShowDialog){
                         uiLiveEvent.dismissDialogEvent.call()
                     }
+                    uiLiveEvent.completeEvent.call()
                     complete.invoke()
                 }
             )
@@ -140,6 +133,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     class UILiveEvent {
         val showDialogEvent by lazy { SingleLiveEvent<Boolean>() }
         val dismissDialogEvent by lazy { SingleLiveEvent<Void>() }
+        val completeEvent  by lazy { SingleLiveEvent<Boolean>() }
         val showToastEvent by lazy { SingleLiveEvent<String>() }
         val showMsgEvent by lazy { SingleLiveEvent<String>() }
     }
