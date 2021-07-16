@@ -84,7 +84,9 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
                 },
                 complete = {
-                    uiLiveEvent.dismissDialogEvent.call()
+                    if (isShowDialog){
+                        uiLiveEvent.dismissDialogEvent.call()
+                    }
                     complete()
                 }
             )
@@ -124,7 +126,9 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                     uiLiveEvent.showToastEvent.postValue(it.errorMessage)
                     error(it)
                 }, {
-                    uiLiveEvent.dismissDialogEvent.call()
+                    if (isShowDialog){
+                        uiLiveEvent.dismissDialogEvent.call()
+                    }
                     complete.invoke()
                 }
             )
