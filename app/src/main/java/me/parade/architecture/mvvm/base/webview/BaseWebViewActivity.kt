@@ -318,7 +318,7 @@ class BaseWebViewActivity : BaseActivity<NoViewModel, ActivityBaseWebviewBinding
     }
 
     private fun getSdCardDirectory(context: Context): String {
-        val externalCacheDir = context.externalCacheDir
+        val externalCacheDir = context.getExternalFilesDir("")
         val file = File(externalCacheDir, "wuye")
         if (!file.exists()) {
             file.mkdirs()
